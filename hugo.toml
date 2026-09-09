@@ -1,0 +1,6 @@
+baseURL = "https://dhrubotara.web.app/"
+languageCode = "bn"
+title = "ধ্রুবতারা"
+
+[params]
+  tagline = "ত্রৈমাসিক সাহিত্য ও সংস্কৃতি পত্রিকা"
