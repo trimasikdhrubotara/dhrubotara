@@ -1,0 +1,25 @@
+backend:
+  name: git-gateway
+  branch: main
+  identity_url: https://courageous-sawine-868e64.netlify.app/.netlify/identity
+  gateway_url: https://courageous-sawine-868e64.netlify.app/.netlify/git
+
+media_folder: "static/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "lekha"
+    label: "লেখা"
+    folder: "content/lekha"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "শিরোনাম", name: "title", widget: "string"}
+      - label: "বিভাগ"
+        name: "category"
+        widget: "select"
+        options: ["গল্প", "কবিতা", "প্রবন্ধ", "জ্ঞান-বিজ্ঞান", "সংস্কৃতি", "সাক্ষাৎকার"]
+      - {label: "সংখ্যা/মাস", name: "issue", widget: "string", required: false}
+      - {label: "লেখক", name: "author", widget: "string"}
+      - {label: "তারিখ", name: "date", widget: "datetime"}
+      - {label: "লেখা", name: "body", widget: "markdown"}
