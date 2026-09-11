@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
 		<title>ধ্রুবতারা</title>
-		<link>https://dhrubotara.web.app/</link>
+		<link>https://trimasikdhrubotara.web.app/</link>
 		<description>Recent content on ধ্রুবতারা</description>
 		<generator>Hugo</generator>
 		<language>bn</language>
@@ -10,6 +10,15 @@
 		
 		
 		
-			<atom:link href="https://dhrubotara.web.app/index.xml" rel="self" type="application/rss+xml" />
+			<lastBuildDate>Fri, 11 Sep 2026 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="https://trimasikdhrubotara.web.app/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>নদীর নাম ছিল না</title>
+				<link>https://trimasikdhrubotara.web.app/lekha/prothom-lekha/</link>
+				<pubDate>Fri, 11 Sep 2026 00:00:00 +0000</pubDate>
+				<guid>https://trimasikdhrubotara.web.app/lekha/prothom-lekha/</guid>
+				<description>&lt;p&gt;এটা আমাদের প্রথম আসল লেখা। এখান থেকে শুরু হলো ধ্রুবতারার নতুন অনলাইন যাত্রা।&lt;/p&gt;&#xA;&lt;p&gt;আপনি এই জায়গায় যেকোনো গল্প, কবিতা বা প্রবন্ধ লিখতে পারবেন। প্রতিটা প্যারাগ্রাফ একটা খালি লাইন দিয়ে আলাদা করবেন।&lt;/p&gt;</description>
+			</item>
 	</channel>
 </rss>

@@ -2,12 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://dhrubotara.web.app/categories/</loc>
+    <loc>https://trimasikdhrubotara.web.app/lekha/</loc>
+    <lastmod>2026-09-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://dhrubotara.web.app/lekha/</loc>
+    <loc>https://trimasikdhrubotara.web.app/</loc>
+    <lastmod>2026-09-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://dhrubotara.web.app/tags/</loc>
+    <loc>https://trimasikdhrubotara.web.app/lekha/prothom-lekha/</loc>
+    <lastmod>2026-09-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://dhrubotara.web.app/</loc>
+    <loc>https://trimasikdhrubotara.web.app/categories/</loc>
+  </url><url>
+    <loc>https://trimasikdhrubotara.web.app/tags/</loc>
   </url>
 </urlset>
