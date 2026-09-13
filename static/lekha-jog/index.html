@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>নতুন লেখা তৈরি করুন — ধ্রুবতারা</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700;900&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAF6EC; --paper-dim:#F1E9D6; --paper-deep:#E9DFC7;
+    --ink:#2B241B; --ink-soft:#6B6151;
+    --crimson:#A6192E; --crimson-soft:#C24457;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Hind Siliguri',sans-serif;}
+  .wrap{max-width:680px;margin:0 auto;padding:50px 24px 90px;}
+  h1{font-family:'Noto Serif Bengali',serif;font-size:28px;margin:0 0 8px;}
+  .sub{color:var(--ink-soft);font-size:15px;margin:0 0 34px;line-height:1.7;}
+  label{display:block;font-weight:700;font-size:14px;margin:22px 0 8px;}
+  input, select, textarea{
+    width:100%;padding:12px 14px;font-size:15px;font-family:inherit;
+    border:1px solid var(--paper-deep);border-radius:4px;background:#fff;color:var(--ink);
+  }
+  textarea{min-height:220px;resize:vertical;line-height:1.8;}
+  .hint{font-size:12.5px;color:var(--ink-soft);margin-top:6px;}
+  .btn{
+    margin-top:32px;width:100%;padding:16px;background:var(--crimson);color:#fff;
+    border:none;border-radius:4px;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;
+  }
+  .btn:hover{background:var(--crimson-soft);}
+  .btn:disabled{background:var(--paper-deep);color:var(--ink-soft);cursor:not-allowed;}
+  .note{
+    margin-top:18px;padding:14px 16px;background:var(--paper-dim);border-radius:4px;
+    font-size:13.5px;color:var(--ink-soft);line-height:1.7;
+  }
+  .back{display:inline-block;margin-bottom:24px;color:var(--crimson);font-weight:700;font-size:14px;text-decoration:none;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="/">← হোমে ফিরুন</a>
+  <h1>নতুন লেখা তৈরি করুন</h1>
+  <p class="sub">নিচের বক্সগুলো পূরণ করে "GitHub-এ প্রকাশ করুন" বাটনে চাপুন — GitHub-এর পাতা নিজে থেকেই সব তথ্য নিয়ে খুলে যাবে, আপনি শুধু সেখানে "Commit changes" চাপবেন। GitHub-এ লগইন করা থাকতে হবে।</p>
+
+  <label for="title">শিরোনাম</label>
+  <input id="title" type="text" placeholder="যেমন: নদীর নাম ছিল না">
+
+  <label for="author">লেখকের নাম</label>
+  <input id="author" type="text" placeholder="যেমন: রুবাইয়াত হোসেন">
+
+  <label for="category">বিভাগ</label>
+  <select id="category">
+    <option>গল্প</option>
+    <option>প্রবন্ধ-নিবন্ধ</option>
+    <option>স্মৃতি, অনুবাদ, সফর ও মুক্তগদ্য</option>
+    <option>ছড়া-কবিতা</option>
+    <option>গদ্য-কবিতা</option>
+    <option>জ্ঞান-বিজ্ঞান</option>
+    <option>সংস্কৃতি</option>
+    <option>সাক্ষাৎকার</option>
+    <option>অন্যান্য</option>
+  </select>
+
+  <label for="issue">সংখ্যা / মাস (ঐচ্ছিক)</label>
+  <input id="issue" type="text" placeholder="যেমন: সংখ্যা ৪">
+
+  <label for="body">লেখা</label>
+  <textarea id="body" placeholder="এখানে পুরো লেখাটা লিখুন বা পেস্ট করুন। প্যারাগ্রাফের মাঝে একটা খালি লাইন রাখবেন।"></textarea>
+
+  <button class="btn" id="publishBtn">GitHub-এ প্রকাশ করুন →</button>
+
+  <div class="note">
+    বাটনে চাপলে একটা নতুন ট্যাবে GitHub খুলবে, শিরোনাম-লেখক-বিভাগ-লেখা সব আগে থেকেই বসানো থাকবে। সেখানে নিচে স্ক্রল করে সবুজ <b>"Commit changes"</b> বাটনে চাপলেই লেখাটা ১-২ মিনিটের মধ্যে সাইটে প্রকাশিত হয়ে যাবে।
+  </div>
+</div>
+
+<script>
+  const REPO = "trimasikdhrubotara/dhrubotara";
+  const BRANCH = "main";
+
+  document.getElementById('publishBtn').addEventListener('click', function(){
+    const title = document.getElementById('title').value.trim();
+    const author = document.getElementById('author').value.trim();
+    const category = document.getElementById('category').value;
+    const issue = document.getElementById('issue').value.trim();
+    const body = document.getElementById('body').value.trim();
+
+    if(!title || !body){
+      alert('শিরোনাম আর লেখা দুটোই দিতে হবে।');
+      return;
+    }
+
+    const today = new Date();
+    const dateStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
+    const filename = 'lekha-' + today.getFullYear() + String(today.getMonth()+1).padStart(2,'0') + String(today.getDate()).padStart(2,'0') + '-' + today.getHours() + today.getMinutes() + today.getSeconds() + '.md';
+
+    let frontMatter = '---\n';
+    frontMatter += 'title: "' + title.replace(/"/g,"'") + '"\n';
+    frontMatter += 'category: "' + category + '"\n';
+    if(issue){ frontMatter += 'issue: "' + issue.replace(/"/g,"'") + '"\n'; }
+    if(author){ frontMatter += 'author: "' + author.replace(/"/g,"'") + '"\n'; }
+    frontMatter += 'date: ' + dateStr + '\n';
+    frontMatter += '---\n\n';
+
+    const fullContent = frontMatter + body + '\n';
+    const path = 'content/lekha/' + filename;
+
+    const url = 'https://github.com/' + REPO + '/new/' + BRANCH +
+      '?filename=' + encodeURIComponent(path) +
+      '&value=' + encodeURIComponent(fullContent);
+
+    window.open(url, '_blank');
+  });
+</script>
+</body>
+</html>
