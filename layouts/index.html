@@ -24,12 +24,10 @@
   </div>
 
   <header class="masthead">
-    <div class="wrap">
-      <div class="logo-slot">আপনার<br>লোগো</div>
-      <div class="name-block">
-        <h1 class="nameplate">ধ্রুবতারা<span class="dot">.</span></h1>
-        <p class="tagline">{{ $data.tagline }}</p>
-      </div>
+    <div class="wrap" style="justify-content:center;">
+      <a href="{{ "/" | relURL }}">
+        <img src="{{ "images/logo.png" | relURL }}" alt="{{ .Site.Title }} — {{ $data.tagline }}" style="max-height:110px;width:auto;display:block;">
+      </a>
     </div>
   </header>
 
