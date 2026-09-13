@@ -1,7 +1,7 @@
 baseURL = "https://trimasikdhrubotara.web.app/"
 languageCode = "bn"
-title = "ধ্রুবতারা"
+title = "ত্রৈমাসিক ধ্রুবতারা"
 
 [params]
-  tagline = "ত্রৈমাসিক সাহিত্য ও সংস্কৃতি পত্রিকা"
+  tagline = "পুষ্প সৌরভে নব আন্দোলিত কালের ধ্রুবতারা"
 buildFuture = true
