@@ -61,6 +61,7 @@
         <p class="excerpt">{{ $data.hero_fallback.excerpt }}</p>
       </div>
       {{ end }}
+
       <div class="hero-side">
         <h3>{{ $data.sidebar_title }}</h3>
         <ol>
@@ -80,6 +81,7 @@
         <h2>{{ $data.latest_section_title }}</h2>
         <a class="more" href="{{ "lekha/" | relURL }}">{{ $data.latest_section_link_text }}</a>
       </div>
+
       <div class="latest-grid">
         {{ $lekha := where .Site.RegularPages "Section" "lekha" }}
         {{ range first 3 $lekha.ByDate.Reverse }}
@@ -100,14 +102,35 @@
   </section>
 
   <section class="archive">
-    <div class="wrap grid">
-      <div>
+    <div class="wrap">
+
+      <div class="archive-heading">
         <h2>{{ $data.archive.title }}</h2>
         <p>{{ $data.archive.description }}</p>
       </div>
-      <div class="issue-covers">
-        <div class="issue-cover"><span class="yr">{{ $data.archive.placeholder_text }}</span></div>
+
+      <div class="issue-cards">
+
+        <a class="issue-card" href="{{ "archive/issue-1/" | relURL }}">
+          <div class="issue-number">০১</div>
+          <div class="issue-info">
+            <strong>জানুয়ারি ২০২৬</strong>
+            <span>বর্ষ ০১ · সংখ্যা ০১</span>
+            <small>সংখ্যাটি পড়ুন →</small>
+          </div>
+        </a>
+
+        <a class="issue-card" href="{{ "archive/issue-2/" | relURL }}">
+          <div class="issue-number">০২</div>
+          <div class="issue-info">
+            <strong>এপ্রিল ২০২৬</strong>
+            <span>বর্ষ ০১ · সংখ্যা ০২</span>
+            <small>সংখ্যাটি পড়ুন →</small>
+          </div>
+        </a>
+
       </div>
+
     </div>
   </section>
 
@@ -117,6 +140,7 @@
         <h2>{{ $data.submit.title }}</h2>
         <p>{{ $data.submit.description }}</p>
       </div>
+
       <div class="steps">
         {{ range $data.submit.steps }}
         <div class="step">
@@ -126,17 +150,22 @@
         </div>
         {{ end }}
       </div>
-      <div class="cta"><a class="btn" href="{{ $data.submit.button_link }}">{{ $data.submit.button_text }}</a></div>
+
+      <div class="cta">
+        <a class="btn" href="{{ $data.submit.button_link }}">{{ $data.submit.button_text }}</a>
+      </div>
     </div>
   </section>
 
   <footer>
     <div class="wrap">
       <div class="grid">
+
         <div>
           <p class="fname">ধ্রুবতারা</p>
           <p>{{ $data.footer.description }}</p>
         </div>
+
         {{ range $data.footer.columns }}
         <div>
           <h4>{{ .heading }}</h4>
@@ -147,7 +176,9 @@
           </ul>
         </div>
         {{ end }}
+
       </div>
+
       <div class="footer-bottom">
         <span>{{ $data.footer.copyright }}</span>
         <span>{{ $data.footer.tagline }}</span>
