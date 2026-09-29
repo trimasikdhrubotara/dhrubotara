@@ -1,0 +1,13 @@
+{{ define "main" }}
+<section class="archive">
+  <div class="wrap" style="max-width:700px;margin:0 auto;padding:60px 20px;text-align:center;">
+    <img src="{{ .Params.cover | relURL }}" alt="{{ .Title }}" style="max-width:100%;height:auto;box-shadow:0 4px 20px rgba(0,0,0,0.15);margin-bottom:24px;">
+    <h1>{{ .Title }}</h1>
+    <p>{{ .Date.Format "January 2006" }}</p>
+    <p style="margin-top:24px;">
+      <a class="btn" href="{{ .Params.pdf | relURL }}" target="_blank" rel="noopener">পড়ুন</a>
+      <a class="btn" href="{{ .Params.pdf | relURL }}" download>ডাউনলোড</a>
+    </p>
+  </div>
+</section>
+{{ end }}
