@@ -44,7 +44,7 @@ submit:
   title: "আপনার লেখা পাঠান"
   description: "তিনটি সহজ ধাপে গল্প, কবিতা বা প্রবন্ধ জমা দিন। প্রতিটি জমা আলাদাভাবে সংরক্ষিত হবে।"
   button_text: "লেখা জমা দিন"
-  button_link: "#"
+  button_link: "https://docs.google.com/forms/d/e/1FAIpQLSe8kk1sj4g-JCEeS9PDZj4460vB7xRFvUcz-qZ3F5nOqlinyg/viewform"
   steps:
     - number: "১"
       title: "সংখ্যা বাছাই করুন"
