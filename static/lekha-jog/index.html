@@ -112,11 +112,11 @@
         const fullContent = frontMatter + fullBody;
         const path = 'content/lekha/' + filename;
 
-        const url = 'https://github.com/' + REPO + '/new/' + BRANCH +
-          '?filename=' + encodeURIComponent(path) +
-          '&value=' + encodeURIComponent(fullContent);
-
-        window.open(url, '_blank');
+        navigator.clipboard.writeText(fullContent).then(function(){
+          alert('লেখাটা কপি হয়ে গেছে! এখন GitHub-এর পাতায় টেক্সট বক্সে ক্লিক করে Ctrl+V চেপে পেস্ট করুন, তারপর "Commit changes" চাপুন।');
+          const url = 'https://github.com/' + REPO + '/new/' + BRANCH + '?filename=' + encodeURIComponent(path);
+          window.open(url, '_blank');
+        });
       });
     </script>
   </body>
