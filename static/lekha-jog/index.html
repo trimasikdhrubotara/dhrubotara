@@ -66,53 +66,58 @@
   <label for="issue">সংখ্যা / মাস (ঐচ্ছিক)</label>
   <input id="issue" type="text" placeholder="যেমন: সংখ্যা ৪">
 
-  <label for="body">লেখা</label>
-  <textarea id="body" placeholder="এখানে পুরো লেখাটা লিখুন বা পেস্ট করুন। প্যারাগ্রাফের মাঝে একটা খালি লাইন রাখবেন।"></textarea>
+      <label for="profession">পেশা ও ঠিকানা (ঐচ্ছিক)</label>
+      <input id="profession" type="text" placeholder="যেমন: শিক্ষার্থী, দিলু রোড মাদ্রাসা">
 
-  <button class="btn" id="publishBtn">GitHub-এ প্রকাশ করুন →</button>
+      <label for="body">লেখা</label>
+      <textarea id="body" placeholder="এখানে পুরো লেখাটা লিখুন বা পেস্ট করুন। প্যারাগ্রাফের মাঝে একটা খালি লাইন রাখবেন।"></textarea>
 
-  <div class="note">
-    বাটনে চাপলে একটা নতুন ট্যাবে GitHub খুলবে, শিরোনাম-লেখক-বিভাগ-লেখা সব আগে থেকেই বসানো থাকবে। সেখানে নিচে স্ক্রল করে সবুজ <b>"Commit changes"</b> বাটনে চাপলেই লেখাটা ১-২ মিনিটের মধ্যে সাইটে প্রকাশিত হয়ে যাবে।
-  </div>
-</div>
+      <button class="btn" id="publishBtn">GitHub-এ প্রকাশ করুন →</button>
 
-<script>
-  const REPO = "trimasikdhrubotara/dhrubotara";
-  const BRANCH = "main";
+      <div class="note">
+        বাটনে চাপলে একটা নতুন ট্যাবে GitHub খুলবে, শিরোনাম-লেখক-বিভাগ-লেখা সব আগে থেকেই বসানো থাকবে। সেখানে নিচে স্ক্রল করে সবুজ <b>"Commit changes"</b> বাটনে চাপলেই লেখাটা ১-২ মিনিটের মধ্যে সাইটে প্রকাশিত হয়ে যাবে।
+      </div>
+    </div>
 
-  document.getElementById('publishBtn').addEventListener('click', function(){
-    const title = document.getElementById('title').value.trim();
-    const author = document.getElementById('author').value.trim();
-    const category = document.getElementById('category').value;
-    const issue = document.getElementById('issue').value.trim();
-    const body = document.getElementById('body').value.trim();
+    <script>
+      const REPO = "trimasikdhrubotara/dhrubotara";
+      const BRANCH = "main";
 
-    if(!title || !body){
-      alert('শিরোনাম আর লেখা দুটোই দিতে হবে।');
-      return;
-    }
+      document.getElementById('publishBtn').addEventListener('click', function(){
+        const title = document.getElementById('title').value.trim();
+        const author = document.getElementById('author').value.trim();
+        const category = document.getElementById('category').value;
+        const issue = document.getElementById('issue').value.trim();
+        const body = document.getElementById('body').value.trim();
+        const profession = document.getElementById('profession').value.trim();
 
-    const today = new Date();
-    const dateStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
-    const filename = 'lekha-' + today.getFullYear() + String(today.getMonth()+1).padStart(2,'0') + String(today.getDate()).padStart(2,'0') + '-' + today.getHours() + today.getMinutes() + today.getSeconds() + '.md';
+        if(!title || !body){
+          alert('শিরোনাম আর লেখা দুটোই দিতে হবে।');
+          return;
+        }
 
-    let frontMatter = '---\n';
-    frontMatter += 'title: "' + title.replace(/"/g,"'") + '"\n';
-    frontMatter += 'category: "' + category + '"\n';
-    if(issue){ frontMatter += 'issue: "' + issue.replace(/"/g,"'") + '"\n'; }
-    if(author){ frontMatter += 'author: "' + author.replace(/"/g,"'") + '"\n'; }
-    frontMatter += 'date: ' + dateStr + '\n';
-    frontMatter += '---\n\n';
+        const today = new Date();
+        const dateStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
+        const filename = 'lekha-' + today.getFullYear() + String(today.getMonth()+1).padStart(2,'0') + String(today.getDate()).padStart(2,'0') + '-' + today.getHours() + today.getMinutes() + today.getSeconds() + '.md';
 
-    const fullContent = frontMatter + body + '\n';
-    const path = 'content/lekha/' + filename;
+        let frontMatter = '---\n';
+        frontMatter += 'title: "' + title.replace(/"/g,'\'') + '"\n';
+        frontMatter += 'category: "' + category + '"\n';
+        if(issue){ frontMatter += 'issue: "' + issue.replace(/"/g,'\'') + '"\n'; }
+        if(author){ frontMatter += 'author: "' + author.replace(/"/g,'\'') + '"\n'; }
+        frontMatter += 'date: ' + dateStr + '\n';
+        frontMatter += '---\n\n';
 
-    const url = 'https://github.com/' + REPO + '/new/' + BRANCH +
-      '?filename=' + encodeURIComponent(path) +
-      '&value=' + encodeURIComponent(fullContent);
+        const fullBody = profession ? (body + '\n\n' + profession + '\n') : (body + '\n');
+        const fullContent = frontMatter + fullBody;
+        const path = 'content/lekha/' + filename;
 
-    window.open(url, '_blank');
-  });
-</script>
-</body>
+        const url = 'https://github.com/' + REPO + '/new/' + BRANCH +
+          '?filename=' + encodeURIComponent(path) +
+          '&value=' + encodeURIComponent(fullContent);
+
+        window.open(url, '_blank');
+      });
+    </script>
+  </body>
 </html>
