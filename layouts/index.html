@@ -36,7 +36,7 @@
     <div class="wrap">
       <a href="#" class="active">হোম</a>
       {{ range $data.nav_items }}
-      <a href="#"><span class="chip"></span>{{ .label }}</a>
+      <a href="{{ "lekha/" | relURL }}?cat={{ .label | urlquery }}"><span class="chip"></span>{{ .label }}</a>
       {{ end }}
       <a href="#">আর্কাইভ</a>
       <a href="#">আমাদের সম্পর্কে</a>
