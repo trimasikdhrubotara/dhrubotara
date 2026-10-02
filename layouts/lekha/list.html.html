@@ -23,12 +23,33 @@
   <a class="back-link" href="{{ "/" | relURL }}">← হোমে ফিরুন</a>
   <h1 class="list-title">সব লেখা</h1>
   {{ range .Pages.ByDate.Reverse }}
-  <div class="list-item">
+  <div class="list-item" data-cat="{{ .Params.category }}">
     <span class="cat">{{ .Params.category }}</span>
     <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
     <div class="meta">{{ with .Params.author }}{{ . }} · {{ end }}{{ .Date.Format "2 January, 2006" }}</div>
   </div>
   {{ end }}
 </div>
+ <script>
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var cat = params.get('cat');
+  if(!cat) return;
+  var items = document.querySelectorAll('.list-item');
+  var isKobita = (cat.indexOf('কবিতা') > -1 || cat.indexOf('ছড়া') > -1);
+  items.forEach(function(item){
+    var itemCat = (item.getAttribute('data-cat') || '').trim();
+    var match;
+    if(isKobita){
+      match = (itemCat.indexOf('কবিতা') > -1 || itemCat.indexOf('ছড়া') > -1);
+    } else {
+      match = (itemCat === cat.trim());
+    }
+    item.style.display = match ? '' : 'none';
+  });
+  var titleEl = document.querySelector('.list-title');
+  if(titleEl){ titleEl.textContent = cat; }
+})();
+</script> 
 </body>
 </html>
