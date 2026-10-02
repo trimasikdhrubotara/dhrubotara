@@ -64,7 +64,7 @@ footer:
     - heading: "পত্রিকা"
       links:
         - label: "আমাদের সম্পর্কে"
-          url: "#"
+          url: "/about/"
         - label: "আর্কাইভ"
           url: "#"
         - label: "লেখা জমা দিন"
