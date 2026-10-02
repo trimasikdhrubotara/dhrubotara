@@ -70,7 +70,7 @@ footer:
         - label: "লেখা জমা দিন"
           url: "#"
         - label: "যোগাযোগ"
-          url: "#"
+       url: "/contact/"
     - heading: "যুক্ত থাকুন"
       links:
         - label: "ফেসবুক পেজ"
