@@ -8,7 +8,7 @@ utility_links:
   - label: "আর্কাইভ"
     url: "#"
   - label: "যোগাযোগ"
-    url: "#"
+    url: "/contact/"
 
 nav_items:
   - label: "গল্প"
