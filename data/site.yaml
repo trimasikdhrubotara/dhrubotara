@@ -6,7 +6,7 @@ tagline: "পুষ্প সৌরভে নব আন্দোলিত কা
 
 utility_links:
   - label: "আর্কাইভ"
-    url: "#"
+    url: "/archive/"
   - label: "যোগাযোগ"
     url: "/contact/"
 
@@ -66,7 +66,7 @@ footer:
         - label: "আমাদের সম্পর্কে"
           url: "/about/"
         - label: "আর্কাইভ"
-          url: "#"
+          url: "/archive/"
         - label: "লেখা জমা দিন"
           url: "#"
         - label: "যোগাযোগ"
