@@ -100,8 +100,8 @@
         {{ $lekha := where .Site.RegularPages "Section" "lekha" }}
         {{ range first 3 $lekha.ByDate.Reverse }}
         <div class="card">
-          {{ with .Params.image }}
-          <a class="pic" href="{{ $.RelPermalink }}"><img src="{{ . | relURL }}" alt="" loading="lazy"></a>
+       {{ if .Params.image }}
+<a class="pic" href="{{ .RelPermalink }}"><img src="{{ .Params.image | relURL }}" alt="" loading="lazy"></a>
           {{ else }}
           <a class="pic empty" href="{{ .RelPermalink }}"><img src="{{ "favicon-192.png" | relURL }}" alt=""></a>
           {{ end }}
