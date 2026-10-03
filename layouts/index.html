@@ -58,7 +58,10 @@
     <div class="wrap grid">
       {{ $lekha := where .Site.RegularPages "Section" "lekha" }}
       {{ $latest := $lekha.ByDate.Reverse }}
-      {{ with index $latest 0 }}
+      {{ $pinned := where $lekha "Params.featured" true }}
+{{ $heroPost := false }}
+{{ with $pinned }}{{ $heroPost = index .ByDate.Reverse 0 }}{{ else }}{{ with $latest }}{{ $heroPost = index . 0 }}{{ end }}{{ end }}
+{{ with $heroPost }}
       <div>
         <span class="hero-cat"><span class="chip"></span>{{ .Params.category }}</span>
         <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
