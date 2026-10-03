@@ -67,8 +67,6 @@ footer:
           url: "/about/"
         - label: "আর্কাইভ"
           url: "/archive/"
-        - label: "লেখা জমা দিন"
-          url: "#"
         - label: "যোগাযোগ"
           url: "/contact/"
     - heading: "যুক্ত থাকুন"
