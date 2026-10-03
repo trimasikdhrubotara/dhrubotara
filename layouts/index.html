@@ -38,7 +38,7 @@
       {{ range $data.nav_items }}
       <a href="{{ "lekha/" | relURL }}?cat={{ .label | urlquery }}"><span class="chip"></span>{{ .label }}</a>
       {{ end }}
-      <a href="#">আর্কাইভ</a>
+      <a href="{{ "archive/" | relURL }}">আর্কাইভ</a>
         <a href="{{ "about/" | relURL }}">আমাদের সম্পর্কে</a>
     </div>
   </nav>
