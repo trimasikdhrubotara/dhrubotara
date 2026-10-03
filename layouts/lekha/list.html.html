@@ -9,34 +9,41 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700;900&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
 <style>
-  .list-wrap{max-width:820px;margin:0 auto;padding:60px 28px 80px;}
-  .list-title{font-size:30px;margin:0 0 40px;}
+  .list-wrap{max-width:1200px;margin:0 auto;padding:60px 28px 80px;}
+  .list-title{font-size:30px;margin:0 0 36px;}
   .back-link{display:inline-block;margin-bottom:30px;color:var(--crimson);font-weight:700;font-size:14px;}
-  .list-item{padding:24px 0;border-bottom:1px solid var(--paper-deep);display:flex;gap:20px;align-items:flex-start;}
-  .list-item .text{flex:1;min-width:0;}
-  .list-item .thumb{width:120px;height:90px;object-fit:cover;border-radius:4px;flex-shrink:0;}
-  .list-item .cat{color:var(--crimson);font-weight:700;font-size:12px;display:block;margin-bottom:8px;}
-  .list-item h3{font-size:20px;margin:0 0 8px;}
-  .list-item .meta{font-size:13px;color:var(--ink-soft);font-weight:600;}
-  @media (max-width:520px){
-    .list-item .thumb{width:84px;height:64px;}
-  }
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:36px 28px;}
+  .card{display:block;text-decoration:none;color:inherit;border-bottom:1px solid var(--paper-deep);padding-bottom:18px;}
+  .card .pic{width:100%;aspect-ratio:16/10;border-radius:8px;overflow:hidden;background:var(--paper-dim);margin-bottom:12px;}
+  .card .pic img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s;}
+  .card:hover .pic img{transform:scale(1.04);}
+  .card .pic.empty{display:flex;align-items:center;justify-content:center;}
+  .card .pic.empty img{width:64px;height:64px;object-fit:contain;opacity:.35;border-radius:8px;}
+  .card:hover .pic.empty img{transform:none;}
+  .badge{display:inline-block;background:var(--crimson);color:#fff;font-weight:700;font-size:12px;padding:3px 9px;border-radius:3px;margin-bottom:8px;}
+  .card h3{font-size:18px;line-height:1.5;margin:0 0 6px;}
+  .card .meta{font-size:13px;color:var(--ink-soft);font-weight:600;}
+  .card:hover h3{color:var(--crimson);}
 </style>
 </head>
 <body>
 <div class="list-wrap">
   <a class="back-link" href="{{ "/" | relURL }}">← হোমে ফিরুন</a>
   <h1 class="list-title">সব লেখা</h1>
+  <div class="grid">
   {{ range .Pages.ByDate.Reverse }}
-  <div class="list-item" data-cat="{{ .Params.category }}">
-    <div class="text">
-      <span class="cat">{{ .Params.category }}</span>
-      <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+    <a class="card list-item" href="{{ .RelPermalink }}" data-cat="{{ .Params.category }}">
+      {{ with .Params.image }}
+      <div class="pic"><img src="{{ . | relURL }}" alt="{{ $.Title }}" loading="lazy"></div>
+      {{ else }}
+      <div class="pic empty"><img src="{{ "favicon-192.png" | relURL }}" alt=""></div>
+      {{ end }}
+      <span class="badge">{{ .Params.category }}</span>
+      <h3>{{ .Title }}</h3>
       <div class="meta">{{ with .Params.author }}{{ . }} · {{ end }}{{ .Date.Format "2 January, 2006" }}</div>
-    </div>
-    {{ with .Params.image }}<img class="thumb" src="{{ . | relURL }}" alt="{{ $.Title }}" loading="lazy">{{ end }}
-  </div>
+    </a>
   {{ end }}
+  </div>
 </div>
 <script>
 (function(){
@@ -53,7 +60,7 @@
     } else {
       match = (itemCat === cat.trim());
     }
-    item.style.display = match ? 'flex' : 'none';
+    item.style.display = match ? '' : 'none';
   });
   var titleEl = document.querySelector('.list-title');
   if(titleEl){ titleEl.textContent = cat; }
