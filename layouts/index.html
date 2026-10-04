@@ -18,6 +18,11 @@
   .latest-grid .card .pic.empty{display:flex;align-items:center;justify-content:center;}
   .latest-grid .card .pic.empty img{width:64px;height:64px;object-fit:contain;opacity:.35;}
   .latest-grid .card .pic.empty:hover img{transform:none;}
+    .homesearch{background:var(--paper-dim);padding:14px 0;}
+  .homesearch form{display:flex;gap:10px;max-width:520px;}
+  .homesearch input{flex:1;min-width:0;padding:11px 14px;font-size:16px;font-family:inherit;border:1px solid var(--paper-deep);border-radius:6px;background:#fff;color:var(--ink);}
+  .homesearch input:focus{outline:none;border-color:var(--crimson);}
+  .homesearch button{padding:11px 20px;background:var(--crimson);color:#fff;border:none;border-radius:6px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;}
 </style>
 </head>
 <body>
@@ -53,6 +58,14 @@
         <a href="{{ "about/" | relURL }}">আমাদের সম্পর্কে</a>
     </div>
   </nav>
+    <div class="homesearch">
+    <div class="wrap">
+      <form action="{{ "lekha/" | relURL }}" method="get">
+        <input type="search" name="q" placeholder="লেখা খুঁজুন…" autocomplete="off">
+        <button type="submit">খুঁজুন</button>
+      </form>
+    </div>
+  </div>
 
   <section class="hero">
     <div class="wrap grid">
