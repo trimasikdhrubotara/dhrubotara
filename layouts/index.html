@@ -115,7 +115,7 @@
         {{ range first 3 $lekha.ByDate.Reverse }}
         <div class="card">
        {{ if .Params.image }}
-<a class="pic" href="{{ .RelPermalink }}"><img src="{{ .Params.image | relURL }}" alt="" loading="lazy"></a>
+<a class="pic" href="{{ .RelPermalink }}"><img src="{{ if hasPrefix .Params.image "data:" }}{{ (.Params.thumb | default .Params.image) | safeURL }}{{ else }}{{ .Params.image | relURL }}{{ end }}" alt="" loading="lazy"></a>
           {{ else }}
           <a class="pic empty" href="{{ .RelPermalink }}"><img src="{{ "favicon-192.png" | relURL }}" alt=""></a>
           {{ end }}
