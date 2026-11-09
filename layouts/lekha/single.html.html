@@ -19,10 +19,14 @@
   .post-image{width:100%;height:auto;border-radius:4px;margin:0 0 36px;display:block;}
   .post-body{font-family:'Kalpurush','Noto Serif Bengali',serif;font-size:19px;line-height:1.8;color:var(--ink);text-align:justify;text-justify:inter-word;}
   .post-body p{margin:0 0 20px;}
+  .post-body.poem{text-align:left;}
+  .post-body.poem p{white-space:pre-line;}
   .back-link{display:inline-block;margin-bottom:30px;color:var(--crimson);font-weight:700;font-size:14px;}
 </style>
 </head>
 <body>
+{{ $cat := .Params.category | default "" }}
+{{ $poem := or (in $cat "কবিতা") (in $cat "ছড়া") }}
 <div class="post-wrap">
   <a class="back-link" href="{{ "/" | relURL }}">← হোমে ফিরুন</a>
   <span class="post-cat">{{ .Params.category }}</span>
@@ -32,7 +36,7 @@
     {{ with .Params.issue }} · {{ . }}{{ end }}
   </div>
   {{ with .Params.image }}<img class="post-image" src="{{ if hasPrefix . "data:" }}{{ . | safeURL }}{{ else }}{{ . | relURL }}{{ end }}" alt="{{ $.Title }}">{{ end }}
-  <div class="post-body">
+  <div class="post-body{{ if $poem }} poem{{ end }}">
     {{ .Content }}
   </div>
 </div>
