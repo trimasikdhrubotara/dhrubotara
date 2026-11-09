@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ .Title }} — {{ .Site.Title }}</title>
 <meta property="og:title" content="{{ .Title }}">
-{{ with .Params.image }}<meta property="og:image" content="{{ . | absURL }}">{{ end }}
+{{ with .Params.image }}{{ if not (hasPrefix . "data:") }}<meta property="og:image" content="{{ . | absURL }}">{{ end }}{{ end }}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700;900&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -31,7 +31,7 @@
     {{ with .Params.author }}{{ . }} · {{ end }}{{ .Date.Format "2 January, 2006" }}
     {{ with .Params.issue }} · {{ . }}{{ end }}
   </div>
-  {{ with .Params.image }}<img class="post-image" src="{{ . | relURL }}" alt="{{ $.Title }}">{{ end }}
+  {{ with .Params.image }}<img class="post-image" src="{{ if hasPrefix . "data:" }}{{ . | safeURL }}{{ else }}{{ . | relURL }}{{ end }}" alt="{{ $.Title }}">{{ end }}
   <div class="post-body">
     {{ .Content }}
   </div>
