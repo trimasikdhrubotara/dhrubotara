@@ -25,12 +25,17 @@
   }
   textarea{min-height:220px;resize:vertical;line-height:1.8;}
   .hint{font-size:12.5px;color:var(--ink-soft);margin-top:6px;line-height:1.6;}
+  .imgbox{border:1px dashed var(--ink-soft);border-radius:6px;padding:14px;background:#fff;}
+  .imgbox input[type=file]{border:none;padding:0;background:transparent;}
+  #preview{display:none;margin-top:14px;}
+  #preview img{max-width:100%;max-height:220px;border-radius:4px;display:block;}
+  #imginfo{font-size:12.5px;color:var(--ink-soft);margin:8px 0;}
+  .small{width:auto;padding:8px 14px;background:var(--paper-dim);border:1px solid var(--paper-deep);border-radius:4px;font-family:inherit;font-size:13px;cursor:pointer;}
   .btn{
     margin-top:32px;width:100%;padding:16px;background:var(--crimson);color:#fff;
     border:none;border-radius:4px;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;
   }
   .btn:hover{background:var(--crimson-soft);}
-  .btn:disabled{background:var(--paper-deep);color:var(--ink-soft);cursor:not-allowed;}
   .note{
     margin-top:18px;padding:14px 16px;background:var(--paper-dim);border-radius:4px;
     font-size:13.5px;color:var(--ink-soft);line-height:1.7;
@@ -42,7 +47,7 @@
 <div class="wrap">
   <a class="back" href="/">← হোমে ফিরুন</a>
   <h1>নতুন লেখা তৈরি করুন</h1>
-  <p class="sub">নিচের বক্সগুলো পূরণ করে "GitHub-এ প্রকাশ করুন" বাটনে চাপুন — GitHub-এর পাতা নিজে থেকেই সব তথ্য নিয়ে খুলে যাবে, আপনি শুধু সেখানে "Commit changes" চাপবেন। GitHub-এ লগইন করা থাকতে হবে।</p>
+  <p class="sub">নিচের বক্সগুলো পূরণ করে "GitHub-এ প্রকাশ করুন" বাটনে চাপুন — GitHub-এর পাতা নিজে থেকেই খুলে যাবে, আপনি সেখানে শুধু পেস্ট (Ctrl+V) করে "Commit changes" চাপবেন। GitHub-এ লগইন করা থাকতে হবে।</p>
 
   <label for="title">শিরোনাম</label>
   <input id="title" type="text" placeholder="যেমন: নদীর নাম ছিল না">
@@ -66,9 +71,16 @@
   <label for="issue">সংখ্যা / মাস (ঐচ্ছিক)</label>
   <input id="issue" type="text" placeholder="যেমন: সংখ্যা ৪">
 
-  <label for="image">ছবি (ঐচ্ছিক)</label>
-  <input id="image" type="text" placeholder="যেমন: nodi.jpg">
-  <div class="hint">আগে ছবিটা GitHub-এর <b>static/images</b> ফোল্ডারে তুলুন, তারপর এখানে শুধু ফাইলের নাম লিখুন। ছবি না থাকলে ঘরটা খালি রাখুন।</div>
+  <label>ছবি (ঐচ্ছিক)</label>
+  <div class="imgbox">
+    <input id="imgfile" type="file" accept="image/*">
+    <div class="hint">কম্পিউটার বা ফোন থেকে বাছুন। অথবা ছবি কপি করে এই পাতায় <b>Ctrl + V</b> চাপলেই বসে যাবে। ছবি নিজে থেকে ছোট হয়ে যাবে।</div>
+    <div id="preview">
+      <img id="previewimg" alt="">
+      <div id="imginfo"></div>
+      <button type="button" class="small" id="imgremove">ছবি সরান</button>
+    </div>
+  </div>
 
   <label for="profession">পেশা ও ঠিকানা (ঐচ্ছিক)</label>
   <input id="profession" type="text" placeholder="যেমন: শিক্ষার্থী, দিলু রোড মাদ্রাসা">
@@ -79,20 +91,89 @@
   <button class="btn" id="publishBtn">GitHub-এ প্রকাশ করুন →</button>
 
   <div class="note">
-    বাটনে চাপলে একটা নতুন ট্যাবে GitHub খুলবে, শিরোনাম-লেখক-বিভাগ-লেখা সব আগে থেকেই বসানো থাকবে। সেখানে নিচে স্ক্রল করে সবুজ <b>"Commit changes"</b> বাটনে চাপলেই লেখাটা ১-২ মিনিটের মধ্যে সাইটে প্রকাশিত হয়ে যাবে।
+    বাটনে চাপলে একটা নতুন ট্যাবে GitHub খুলবে। সেখানে টেক্সট বক্সে ক্লিক করে <b>Ctrl+V</b> চেপে পেস্ট করুন, তারপর নিচে স্ক্রল করে সবুজ <b>"Commit changes"</b> বাটনে চাপলেই লেখাটা (ছবিসহ) ১-২ মিনিটের মধ্যে সাইটে প্রকাশিত হয়ে যাবে।
   </div>
 </div>
 
 <script>
   const REPO = "trimasikdhrubotara/dhrubotara";
   const BRANCH = "main";
+  let imgFull = '';
+  let imgThumb = '';
 
+  // ---- ছবি: ছোট করে লেখার ভেতরেই বসানো হয় ----
+  function draw(img, w, q){
+    const scale = Math.min(1, w / img.naturalWidth);
+    const cw = Math.max(1, Math.round(img.naturalWidth * scale));
+    const ch = Math.max(1, Math.round(img.naturalHeight * scale));
+    const c = document.createElement('canvas');
+    c.width = cw; c.height = ch;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, cw, ch);
+    ctx.drawImage(img, 0, 0, cw, ch);
+    return c.toDataURL('image/jpeg', q);
+  }
+
+  function fit(img, startW, cap){
+    let w = startW, best = '';
+    for (let step = 0; step < 6; step++){
+      const qs = [0.8, 0.7, 0.6, 0.5];
+      for (let i = 0; i < qs.length; i++){
+        best = draw(img, w, qs[i]);
+        if (best.length <= cap) return best;
+      }
+      w = Math.round(w * 0.85);
+    }
+    return best;
+  }
+
+  function loadImageFile(file){
+    if (!file || file.type.indexOf('image/') !== 0) return;
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = function(){
+      URL.revokeObjectURL(url);
+      imgFull = fit(img, 1000, 200000);
+      imgThumb = fit(img, 420, 40000);
+      document.getElementById('previewimg').src = imgFull;
+      document.getElementById('imginfo').textContent =
+        'ছবি ঠিক আছে (প্রায় ' + Math.round(imgFull.length / 1024) + ' KB)';
+      document.getElementById('preview').style.display = 'block';
+    };
+    img.onerror = function(){
+      alert('ছবিটা পড়া গেল না। অন্য একটা ছবি চেষ্টা করুন।');
+    };
+    img.src = url;
+  }
+
+  document.getElementById('imgfile').addEventListener('change', function(e){
+    loadImageFile(e.target.files[0]);
+  });
+
+  document.addEventListener('paste', function(e){
+    const items = (e.clipboardData && e.clipboardData.items) || [];
+    for (let i = 0; i < items.length; i++){
+      if (items[i].type.indexOf('image') === 0){
+        loadImageFile(items[i].getAsFile());
+        e.preventDefault();
+        return;
+      }
+    }
+  });
+
+  document.getElementById('imgremove').addEventListener('click', function(){
+    imgFull = ''; imgThumb = '';
+    document.getElementById('imgfile').value = '';
+    document.getElementById('preview').style.display = 'none';
+  });
+
+  // ---- প্রকাশ ----
   document.getElementById('publishBtn').addEventListener('click', function(){
     const title = document.getElementById('title').value.trim();
     const author = document.getElementById('author').value.trim();
     const category = document.getElementById('category').value;
     const issue = document.getElementById('issue').value.trim();
-    const image = document.getElementById('image').value.trim();
     const body = document.getElementById('body').value.trim();
     const profession = document.getElementById('profession').value.trim();
 
@@ -105,17 +186,15 @@
     const dateStr = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
     const filename = 'lekha-' + today.getFullYear() + String(today.getMonth()+1).padStart(2,'0') + String(today.getDate()).padStart(2,'0') + '-' + today.getHours() + today.getMinutes() + today.getSeconds() + '.md';
 
-    let imagePath = '';
-    if(image){
-      imagePath = /^https?:\/\//i.test(image) ? image : ('/images/' + image.replace(/^\/+/, '').replace(/^images\//, ''));
-    }
-
     let frontMatter = '---\n';
     frontMatter += 'title: "' + title.replace(/"/g,'\'') + '"\n';
     frontMatter += 'category: "' + category + '"\n';
     if(issue){ frontMatter += 'issue: "' + issue.replace(/"/g,'\'') + '"\n'; }
     if(author){ frontMatter += 'author: "' + author.replace(/"/g,'\'') + '"\n'; }
-    if(imagePath){ frontMatter += 'image: "' + imagePath.replace(/"/g,'') + '"\n'; }
+    if(imgFull){
+      frontMatter += 'image: "' + imgFull + '"\n';
+      frontMatter += 'thumb: "' + imgThumb + '"\n';
+    }
     frontMatter += 'date: ' + dateStr + '\n';
     frontMatter += '---\n\n';
 
@@ -127,6 +206,8 @@
       alert('লেখাটা কপি হয়ে গেছে! এখন GitHub-এর পাতায় টেক্সট বক্সে ক্লিক করে Ctrl+V চেপে পেস্ট করুন, তারপর "Commit changes" চাপুন।');
       const url = 'https://github.com/' + REPO + '/new/' + BRANCH + '?filename=' + encodeURIComponent(path);
       window.open(url, '_blank');
+    }).catch(function(){
+      alert('কপি করা গেল না। পাতাটা আবার খুলে চেষ্টা করুন।');
     });
   });
 </script>
