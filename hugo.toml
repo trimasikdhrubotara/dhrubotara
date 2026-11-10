@@ -2,7 +2,8 @@ baseURL = "https://trimasikdhrubotara.web.app/"
 languageCode = "bn"
 title = "ত্রৈমাসিক ধ্রুবতারা"
 enableRobotsTXT = true
+buildFuture = true
+timeZone = "Asia/Dhaka"
 
 [params]
   tagline = "পুষ্প সৌরভে নব আন্দোলিত কালের ধ্রুবতারা"
-buildFuture = true
